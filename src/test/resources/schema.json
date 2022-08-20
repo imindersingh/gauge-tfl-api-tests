@@ -1,0 +1,161 @@
+{
+  "type": "object",
+  "properties": {
+    "journeys": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "arrivalDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "legs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tfl-23"
+            }
+          },
+          "fare": {
+            "$ref": "#/components/schemas/Tfl-28"
+          }
+        },
+        "description": "Object that represents an end to end journey (see schematic)."
+      }
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "modeName": {
+            "type": "string"
+          },
+          "disruptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tfl-21"
+            }
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lineStatuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tfl-31"
+            }
+          },
+          "routeSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tfl-32"
+            }
+          },
+          "serviceTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tfl-33"
+            }
+          },
+          "crowding": {
+            "$ref": "#/components/schemas/Tfl-9"
+          }
+        }
+      }
+    },
+    "cycleHireDockingStationData": {
+      "type": "object",
+      "properties": {
+        "originNumberOfBikes": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "destinationNumberOfBikes": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "originNumberOfEmptySlots": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "destinationNumberOfEmptySlots": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "originId": {
+          "type": "string"
+        },
+        "destinationId": {
+          "type": "string"
+        }
+      }
+    },
+    "stopMessages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendedMaxAgeMinutes": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "searchCriteria": {
+      "type": "object",
+      "properties": {
+        "dateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateTimeType": {
+          "enum": [
+            "Arriving",
+            "Departing"
+          ],
+          "type": "string"
+        },
+        "timeAdjustments": {
+          "$ref": "#/components/schemas/Tfl-37"
+        }
+      }
+    },
+    "journeyVector": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "via": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "description": "A DTO representing a list of possible journeys."
+}

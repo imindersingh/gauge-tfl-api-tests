@@ -15,10 +15,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class JourneyPlannerSteps {
 
     private final JourneyPlannerRequests request = new JourneyPlannerRequests();
+    private static final String VALUE = "value";
+    private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
     @Step("User makes a GET request to plan a journey from <departure> to <destination> with parameters: <parametersTable>")
     public void getRequest(final String departure, final String destination, final Table parametersTable) {
@@ -27,14 +28,14 @@ public class JourneyPlannerSteps {
         SpecDataStore.put("destination", destination);
         final Map<String, Object> queryParams = new HashMap<>();
         parametersTable.getTableRows().forEach(
-            (param) -> {
-                String parameter = param.getCell("parameter");
-                if ("time".equalsIgnoreCase(parameter)) {
-                    createDateTimeStamp(param);
+                (param) -> {
+                    String parameter = param.getCell("parameter");
+                    if ("time".equalsIgnoreCase(parameter)) {
+                        createDateTimeStamp(param);
+                    }
+                    String value = param.getCell(VALUE);
+                    queryParams.put(parameter, value);
                 }
-                String value = param.getCell("value");
-                queryParams.put(parameter, value);
-            }
         );
         SpecDataStore.put("searchParameters", queryParams);
 
@@ -47,9 +48,9 @@ public class JourneyPlannerSteps {
     }
 
     private void createDateTimeStamp(final TableRow param) {
-        final int hour = Integer.parseInt(param.getCell("value").substring(0,2));
-        final int minutes = Integer.parseInt(param.getCell("value").substring(2,4));
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
+        final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
         SpecDataStore.put("dateTime", dateTime);
     }

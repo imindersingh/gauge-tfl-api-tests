@@ -1,13 +1,21 @@
 package steps;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersion;
+import com.networknt.schema.ValidationMessage;
 import com.thoughtworks.gauge.Step;
 import com.thoughtworks.gauge.datastore.SpecDataStore;
 import kong.unirest.HttpResponse;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -75,5 +83,36 @@ public class JourneyPlannerAssertionSteps {
         final List<String> actualDistinctModesList = modesList.stream().distinct().collect(Collectors.toList());
         final List<String> expectedModeList = List.of(queryParameters.get("mode").toString().split(","));
         assertThat(actualDistinctModesList).containsAnyElementsOf(expectedModeList);
+    }
+
+    @Step("And response contains message <message>")
+    public void assertResponseContainsMessage(final String message) {
+        final HttpResponse<?> response = (HttpResponse<?>) SpecDataStore.get("response");
+        final String actualMessage = JsonPath.read(response.getBody().toString(), "$.message");
+        assertThat(actualMessage).isEqualTo(message);
+    }
+
+    @Step("And response contains message <message> with mode")
+        public void assertResponseContainsMessageForInvalidMode(final String message) {
+        final Map<String, Object> queryParameters = (Map<String, Object>) SpecDataStore.get("searchParameters");
+        final String mode = queryParameters.get("mode").toString();
+        assertResponseContainsMessage(String.format("%s%s", message, mode));
+    }
+
+    @Step("Schema validation")
+    public void schemaValidation() {
+        JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4);
+        JsonSchema jsonSchema = factory.getSchema(getClass().getClassLoader().getResourceAsStream("schema.json"));
+        final HttpResponse<?> response = (HttpResponse<?>) SpecDataStore.get("response");
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonResponse;
+        try {
+            jsonResponse = mapper.readTree(response.getBody().toString());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        Set<ValidationMessage> errors = jsonSchema.validate(jsonResponse);
+        assertThat(errors).isEmpty();
+
     }
 }

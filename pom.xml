@@ -52,6 +52,11 @@
             <version>2.7.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>1.0.72</version>
+        </dependency>
     </dependencies>
 
     <build>
