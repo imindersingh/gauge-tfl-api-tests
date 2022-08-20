@@ -7,7 +7,7 @@ import java.util.Map;
 
 import kong.unirest.HttpResponse;
 
-public class JourneyPlannerApiRequests extends Requests {
+public class JourneyPlannerRequests extends Requests {
 
     private final String ACCEPT = "Accept";
     private final String CONTENT_TYPE  = "Content-Type";
@@ -16,7 +16,7 @@ public class JourneyPlannerApiRequests extends Requests {
     private final String APP_KEY = "app_key";
     private final String APP_KEY_VALUE = EnvConfig.get("APP_KEY");
 
-    public JourneyPlannerApiRequests() {
+    public JourneyPlannerRequests() {
         super(EnvConfig.get("HOST"));
     }
 
