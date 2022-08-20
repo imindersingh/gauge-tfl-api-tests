@@ -1,6 +1,12 @@
 Journey Planner Tests
 =====================
 
+    METHOD: GET
+    ENDPOINT: journey/journeyresults/{from}/to/{destination}
+    DESCRIPTION:
+
+//data table with to and from with modes
+
 User can perform journey search within London with valid parameters and retrieve journey options successfully
 --------------------------------------------------------------------------------------------------------------
 tags: iminder
@@ -8,17 +14,17 @@ tags: iminder
      |parameter         |value                  |
      |------------------|-----------------------|
      |mode              |walking                |
-     |timeis            |departing              |
+     |timeis            |arriving               |
      |journeypreference |leasttime              |
-     |time              |1300                   |
+     |time              |1320                   |
 * Assert the http response code is "200"
 * Assert the http response text is "OK"
 * Then at least one journey is returned in the results
 * And the response contains values that match the search parameters
 
 
-User can perform journey search travelling outside of London, with valid parameters and retrieve journey options successfully
-------------------------------------------------------------------------------------------------------------------------------
+User can perform journey search travelling outside of London with nationalSearch set to true and retrieve journey options successfully
+-------------------------------------------------------------------------------------------------------------------------------------
 tags: iminder
 * User makes a GET request to plan a journey from "Kings Cross Station, London, UK" to "Manchester Piccadilly Rail Station" with parameters:
      |parameter         |value                  |
@@ -26,7 +32,7 @@ tags: iminder
      |mode              |tube,bus,national-rail |
      |timeis            |departing              |
      |journeypreference |leasttime              |
-     |time              |1300                   |
+     |time              |1315                   |
      |nationalsearch    |true                   |
 * Assert the http response code is "200"
 * Assert the http response text is "OK"

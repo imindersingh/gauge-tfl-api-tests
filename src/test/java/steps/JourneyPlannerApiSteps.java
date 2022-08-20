@@ -11,9 +11,13 @@ import kong.unirest.HttpResponse;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SimpleTimeZone;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,6 +37,20 @@ public class JourneyPlannerApiSteps {
         parametersTable.getTableRows().forEach(
             (param) -> {
                 String parameter = param.getCell("parameter");
+                if ("time".equalsIgnoreCase(parameter)) {
+                    //convert value to timedrtgtxc
+                    int hour = Integer.parseInt(param.getCell("value").substring(0,2));
+                    int minutes = Integer.parseInt(param.getCell("value").substring(2,4));
+
+                    LocalDateTime timeStamp = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 00));
+                    String tfutf = timeStamp.toString();
+
+//                    SimpleTimeZone simpleDateFormat = new SimpleTimeZone(."HH:mm:ss");
+//                    simpleDateFormat.format("time");
+//                    time = simpleDateFormat.toString();
+
+                    //
+                }
                 String value = param.getCell("value");
                 queryParams.put(parameter, value);
             }
@@ -92,9 +110,7 @@ public class JourneyPlannerApiSteps {
 
         String actualStartDateTime = JsonPath.read(jsonResponse, "$.searchCriteria.dateTime");
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:MM:ss");
-        simpleDateFormat.format("1300");
-        String time = simpleDateFormat.toString();
+
 
 
 //        String time = queryParameters.get("time").toString();
