@@ -19,7 +19,7 @@ BDD tests for Transport for London APIs.
 - Once the scenarios were written, I decided on the framework to create executable specs.
 
 ### Exploring and findings
-- I focused and explored the following areas during testing:
+I focused and explored the following areas during testing:
   
 - What is the functionality of the journey planner api?
   - The functionality overall is quite simple in that you can plan for a journey from point A to point B. What makes 
