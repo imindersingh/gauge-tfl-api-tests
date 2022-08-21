@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "a8a04c1d-943b-4e2d-91d8-8a7d1c9dd72e",
+		"name": "Transport For London",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Journey London - London",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.tfl.gov.uk/journey/journeyresults/Piccadilly%20Circus%20Underground%20Station/to/London%20Paddington%20Rail%20Station?timeis=departing&journeypreference=leasttime&app_key=5e4437e197784ebd9bedeac31e60ea53&date=20220820&time=1300&mode=tube,bus,overground",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tfl",
+						"gov",
+						"uk"
+					],
+					"path": [
+						"journey",
+						"journeyresults",
+						"Piccadilly%20Circus%20Underground%20Station",
+						"to",
+						"London%20Paddington%20Rail%20Station"
+					],
+					"query": [
+						{
+							"key": "timeis",
+							"value": "departing"
+						},
+						{
+							"key": "journeypreference",
+							"value": "leasttime"
+						},
+						{
+							"key": "accessibilitypreference",
+							"value": "norequirements",
+							"disabled": true
+						},
+						{
+							"key": "walkingspeed",
+							"value": "average",
+							"disabled": true
+						},
+						{
+							"key": "cyclepreference",
+							"value": "none",
+							"disabled": true
+						},
+						{
+							"key": "bikeproficiency",
+							"value": "easy",
+							"disabled": true
+						},
+						{
+							"key": "app_key",
+							"value": "5e4437e197784ebd9bedeac31e60ea53"
+						},
+						{
+							"key": "date",
+							"value": "20220820"
+						},
+						{
+							"key": "time",
+							"value": "1300"
+						},
+						{
+							"key": "mode",
+							"value": "tube,bus,overground"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Journey London - Leeds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.tfl.gov.uk/journey/journeyresults/Piccadilly%20Circus%20Underground%20Station/to/London%20Paddington%20Rail%20Station?timeis=departing&journeypreference=leasttime&app_key=5e4437e197784ebd9bedeac31e60ea53&date=20220820&time=1300&mode=tube,bus,overground",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tfl",
+						"gov",
+						"uk"
+					],
+					"path": [
+						"journey",
+						"journeyresults",
+						"Piccadilly%20Circus%20Underground%20Station",
+						"to",
+						"London%20Paddington%20Rail%20Station"
+					],
+					"query": [
+						{
+							"key": "timeis",
+							"value": "departing"
+						},
+						{
+							"key": "journeypreference",
+							"value": "leasttime"
+						},
+						{
+							"key": "accessibilitypreference",
+							"value": "norequirements",
+							"disabled": true
+						},
+						{
+							"key": "walkingspeed",
+							"value": "average",
+							"disabled": true
+						},
+						{
+							"key": "cyclepreference",
+							"value": "none",
+							"disabled": true
+						},
+						{
+							"key": "bikeproficiency",
+							"value": "easy",
+							"disabled": true
+						},
+						{
+							"key": "app_key",
+							"value": "5e4437e197784ebd9bedeac31e60ea53"
+						},
+						{
+							"key": "date",
+							"value": "20220820"
+						},
+						{
+							"key": "time",
+							"value": "1300"
+						},
+						{
+							"key": "mode",
+							"value": "tube,bus,overground"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

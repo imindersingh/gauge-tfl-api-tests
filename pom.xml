@@ -25,20 +25,9 @@
             <version>3.10.00</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.sitture</groupId>
             <artifactId>env-config</artifactId>
             <version>0.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -52,7 +41,6 @@
             <version>1.0.72</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -82,5 +70,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
