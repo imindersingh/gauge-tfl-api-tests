@@ -1,7 +1,10 @@
 package http;
 
 import com.thoughtworks.gauge.Gauge;
-import kong.unirest.*;
+import kong.unirest.HttpResponse;
+import kong.unirest.HttpRequest;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
 
 import java.util.Map;
 
@@ -13,7 +16,7 @@ public abstract class Requests {
     }
 
     private final String host;
-    public Requests(String host) {
+    public Requests(final String host) {
         this.host = host;
     }
 

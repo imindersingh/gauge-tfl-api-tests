@@ -83,7 +83,7 @@ Journey search with invalid nationalsearch returns 400 Bad Request
      |nationalsearch    |invalid                |
 * Assert the http response code is "400"
 * Assert the http response text is "Bad Request"
-* And response contains message "Time is not in a valid format.  It must be in the format: HHmm"
+* And response contains message "The value 'invalid' is not valid for Boolean. "
 
 
 Journey search with ambigious destination returns 300 Multiple Choices
@@ -109,20 +109,3 @@ Schema validation
 * Assert the http response code is "200"
 * Assert the http response text is "OK"
 * Schema validation
-
-//no journey found for your inputs 404, travel outside of london just walking
-
-//SCHEMA MATCH
-
-//* Assert the http response body contains the posted value
-
-///startDateTime":"2022-08-19T13:00:00",
-//
-
-//response code
-//body contains sections
-// schema validation?
-
-//Can perform journey from London to Leeds
-//----------------------------------------
-
