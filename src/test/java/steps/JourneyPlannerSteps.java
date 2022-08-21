@@ -8,9 +8,7 @@ import com.thoughtworks.gauge.datastore.SpecDataStore;
 import http.JourneyPlannerRequests;
 import kong.unirest.HttpResponse;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +51,8 @@ public class JourneyPlannerSteps {
             final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
             final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
             final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-            final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
+            //final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
+            final String dateTime = ZonedDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0), ZoneId.of("Etc/GMT")).format(formatter);
             SpecDataStore.put("dateTime", dateTime);
         }
     }
