@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class JourneyPlannerSteps {
 
-    public static final String INVALID = "invalid";
     private static final String VALUE = "value";
     private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     private final JourneyPlannerRequests request = new JourneyPlannerRequests();
@@ -30,12 +29,16 @@ public class JourneyPlannerSteps {
                 (param) -> {
                     String parameter = param.getCell("parameter");
                     if ("time".equalsIgnoreCase(parameter)) {
-                        createDateTimeStamp(param);
+                        if (!param.getCell(VALUE).equalsIgnoreCase("invalid")) {
+                            createDateTimeStamp(param);
+                            queryParams.put("date", getSearchDate());
+                        }
                     }
                     String value = param.getCell(VALUE);
                     queryParams.put(parameter, value);
                 }
         );
+
         SpecDataStore.put("searchParameters", queryParams);
 
         final HttpResponse<?> response = request.get(path, queryParams);
@@ -46,14 +49,17 @@ public class JourneyPlannerSteps {
         Gauge.writeMessage(String.format("RESPONSE HEADERS: %s", response.getHeaders()));
     }
 
+    private String getSearchDate() {
+        final String datTime = (String) SpecDataStore.get("dateTime");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        return LocalDateTime.parse(datTime).format(formatter);
+    }
+
     private void createDateTimeStamp(final TableRow param) {
-        if (!param.getCell(VALUE).equalsIgnoreCase("invalid")) {
-            final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
-            final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
-            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-            //final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
-            final String dateTime = ZonedDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0), ZoneId.of("Etc/GMT")).format(formatter);
-            SpecDataStore.put("dateTime", dateTime);
-        }
+        final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
+        final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
+        SpecDataStore.put("dateTime", dateTime);
     }
 }
