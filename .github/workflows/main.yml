@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
       - uses: szenius/set-timezone@v1.0
         with:
           timezoneLinux: "GMT"
-      - uses: actions/checkout@v3
       - name: Install Gauge
         uses: getgauge/setup-gauge@master
         with:
