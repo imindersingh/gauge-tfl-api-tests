@@ -116,7 +116,7 @@ Gauge report summary:
 Terminal execution:
 ![gauge-results-terminal](images/execution-results-terminal.png)
 
-You can also see the tests running as part of github actions [here](here).
+You can also see the tests running as part of github actions [here](https://github.com/imindersingh/gauge-tfl-api-tests/actions/workflows/main.yml).
 
 ## Improvements
 - Test scenario with an ambiguous search and then following the redirect urls provided to a valid search 
