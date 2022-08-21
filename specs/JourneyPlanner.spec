@@ -69,7 +69,7 @@ Journey search with invalid time returns 400 Bad Request
 * User makes a GET request to plan a journey from "Kings Cross Station, London, UK" to "Manchester Piccadilly Rail Station" with parameters:
      |parameter         |value                  |
      |------------------|-----------------------|
-     |time              |13oo                   |
+     |time              |invalid                |
 * Assert the http response code is "400"
 * Assert the http response text is "Bad Request"
 * And response contains message "Time is not in a valid format.  It must be in the format: HHmm"
@@ -96,8 +96,9 @@ Journey search with ambigious destination returns 300 Multiple Choices
 * Assert the http response text is "Multiple Choices"
 
 
-Schema validation
--------------------------------------------------------------------------------------------------------------------------------------
+GET to journey/journeyresults returns response valid against schema
+--------------------------------------------------------------------
+tags:wip
 * User makes a GET request to plan a journey from "Kings Cross Station, London, UK" to "Manchester Piccadilly Rail Station" with parameters:
      |parameter         |value                  |
      |------------------|-----------------------|
@@ -108,4 +109,4 @@ Schema validation
      |nationalsearch    |true                   |
 * Assert the http response code is "200"
 * Assert the http response text is "OK"
-* Schema validation
+* The response is valid against the schema

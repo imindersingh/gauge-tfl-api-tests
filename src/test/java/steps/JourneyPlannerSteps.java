@@ -17,9 +17,10 @@ import java.util.Map;
 
 public class JourneyPlannerSteps {
 
-    private final JourneyPlannerRequests request = new JourneyPlannerRequests();
+    public static final String INVALID = "invalid";
     private static final String VALUE = "value";
     private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    private final JourneyPlannerRequests request = new JourneyPlannerRequests();
 
     @Step("User makes a GET request to plan a journey from <departure> to <destination> with parameters: <parametersTable>")
     public void getRequest(final String departure, final String destination, final Table parametersTable) {
@@ -48,10 +49,12 @@ public class JourneyPlannerSteps {
     }
 
     private void createDateTimeStamp(final TableRow param) {
-        final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
-        final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
-        SpecDataStore.put("dateTime", dateTime);
+        if (!param.getCell(VALUE).equalsIgnoreCase("invalid")) {
+            final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
+            final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
+            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
+            SpecDataStore.put("dateTime", dateTime);
+        }
     }
 }

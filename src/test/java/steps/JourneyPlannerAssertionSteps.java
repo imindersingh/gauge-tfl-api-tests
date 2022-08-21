@@ -99,8 +99,8 @@ public class JourneyPlannerAssertionSteps {
         assertResponseContainsMessage(String.format("%s%s", message, mode));
     }
 
-    @Step("Schema validation")
-    public void schemaValidation() {
+    @Step("The response is valid against the schema")
+    public void assertResponseIsValidAgainstSchema() {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4);
         JsonSchema jsonSchema = factory.getSchema(getClass().getClassLoader().getResourceAsStream("schema.json"));
         final HttpResponse<?> response = (HttpResponse<?>) SpecDataStore.get("response");
