@@ -16,7 +16,8 @@ import java.util.Map;
 public class JourneyPlannerSteps {
 
     private static final String VALUE = "value";
-    private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyyMMdd";
     private final JourneyPlannerRequests request = new JourneyPlannerRequests();
 
     @Step("User makes a GET request to plan a journey from <departure> to <destination> with parameters: <parametersTable>")
@@ -51,14 +52,14 @@ public class JourneyPlannerSteps {
 
     private String getSearchDate() {
         final String datTime = (String) SpecDataStore.get("dateTime");
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         return LocalDateTime.parse(datTime).format(formatter);
     }
 
     private void createDateTimeStamp(final TableRow param) {
         final int hour = Integer.parseInt(param.getCell(VALUE).substring(0, 2));
         final int minutes = Integer.parseInt(param.getCell(VALUE).substring(2, 4));
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         final String dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minutes, 0)).format(formatter);
         SpecDataStore.put("dateTime", dateTime);
     }
