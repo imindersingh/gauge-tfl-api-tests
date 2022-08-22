@@ -7,8 +7,16 @@ BDD tests for Transport for London APIs.
 ## Project Dependencies
 - Java 11
 - Maven
-- Gauge - see [instructions](https://docs.gauge.org/getting_started/installing-gauge.html) for installation
-- Gauge IDE Plugin - available for [vs code](https://marketplace.visualstudio.com/items?itemName=getgauge.gauge) and [intelliJ](https://plugins.jetbrains.com/plugin/7535-gauge)
+- Gauge - see [documentation](https://docs.gauge.org/getting_started/installing-gauge.html) for full installation 
+  details. As a quick start:
+  - for macOS, run `brew install gauge` in the terminal
+  - for Windows, run `choco install gauge`
+- Gauge Plugins - once gauge is installed, install the required plugins. See [documentation](https://docs.gauge.org/plugin.html) for full details. From 
+  the terminal run:
+  - java plugin - `gauge install java`
+  - html-report plugin - `gauge install html-report`
+- Gauge IDE Plugin - available for [vs code](https://marketplace.visualstudio.com/items?itemName=getgauge.gauge) and 
+  [intelliJ](https://plugins.jetbrains.com/plugin/7535-gauge) for syntax highlighting
 
 ## Approach
 - I started off by looking at the documentation available for TfL APIs. They are well documented and easy to 
@@ -21,17 +29,17 @@ BDD tests for Transport for London APIs.
 ### Exploring and findings
 I focused and explored the following areas during testing:
   
-- What is the functionality of the journey planner api?
+- What is the functionality of the journey planner api? Is it testable?
   - The functionality overall is quite simple in that you can plan for a journey from point A to point B. What makes 
     it complex are the search parameters, and the varied data returned in the response.
 - Am I able to plan a journey as specified in the task and get back valid results?
   - Once I was able to understand the input parameters, I tried performing journey searches from within London and 
     outside, but I was getting 300 Multiple Choices returned. These were redirects to potential matches to the 
     journey departure and destination points. To get actual journeys in the response I needed specific location data.
-  - I searched for specific location data in the formats accepted by the API to perform more specific searches and 
+  - I searched for specific location data in the formats accepted by the API to perform better searches and 
     get the results required.
 - Depending on the search parameters, what are the responses returned?
-  - I had learned that if the input parameters were not specific enough, a redirect response was returned
+  - I had learned that if the input parameters were not specific enough, a redirect response was returned.
   - I tested the validation on the key input parameters I was using. I didn't explore all the parameters, but the 
     key ones required to fulfill the task such as time, date, journey preference and mode. 
   - As I tested my assumptions and documented the responses and error messages. Not entirely BDD, as the 
@@ -46,12 +54,11 @@ I focused and explored the following areas during testing:
   - Based on the above assumption, I decided to create checks that were not too specific that would cause the 
     automated tests to be brittle and break, but enough to cover the functionality and desired behaviour. For 
     example, I'm checking that for valid `from` and `to` parameters that there is at least one journey option 
-    returned, and that there is at least one match returned from the modes provided.
+    returned using at least one match returned from the modes provided.
 
 ## Automation
-Gauge is a lightweight test automation tool that allows you to write test cases in business language. It is quite 
-similar to Cucumber, but better in my opinion as it has a lot of features such as data persistence, reporting, and a 
-test runner built in. 
+Gauge is a lightweight test automation tool that allows you to write test cases in business language. Specs are 
+written in Markdown syntax. It is quite similar to Cucumber, but better in my opinion as it has a lot of features such as data persistence, reporting, and a test runner built in. 
 
 It is also very customizable, and you can build your own specific framework features using the interfaces 
 available.
@@ -63,8 +70,10 @@ For more information on gauge, see the [documentation](https://docs.gauge.org/in
 ### Framework
 Libraries used:
 
-- Unirest for http requests
-- AssertJ for assertions
+- `unirest` for http requests
+- `assertJ` for assertions
+- `json-path` for reading responses
+- `json-schema-validator` for schema validation (work in progress)
 
 ### Design Approach
 - See structure below:
