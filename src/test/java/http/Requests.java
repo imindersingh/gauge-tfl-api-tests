@@ -16,22 +16,23 @@ public abstract class Requests {
     }
 
     private final String host;
+
     public Requests(final String host) {
         this.host = host;
     }
 
-    public HttpResponse<?> getRequest(String path, Map<String, String> headers, Map<String, Object> queryParams) {
+    public HttpResponse<?> getRequest(final String path, final Map<String, String> headers, final Map<String, Object> queryParams) {
         return this.getRequest(path, headers, queryParams, Type.JSON);
     }
 
-    public HttpResponse<?> getRequest(String path, Map<String, String> headers, Map<String, Object> queryString, Type type) {
+    public HttpResponse<?> getRequest(final String path, final Map<String, String> headers, final Map<String, Object> queryString, final Type type) {
         HttpRequest<?> request = Unirest.get(this.host + path).queryString(queryString).headers(headers);
         Gauge.writeMessage(String.format("REQUEST URL: %s", request.getUrl()));
         Gauge.writeMessage(String.format("REQUEST HEADERS: %s", request.getHeaders()));
         return this.send(request, type);
     }
 
-    private HttpResponse<?> send(HttpRequest<?> request, Type type) {
+    private HttpResponse<?> send(final HttpRequest<?> request, final Type type) {
         HttpResponse<?> response = null;
         try {
             if (type == Type.JSON) {

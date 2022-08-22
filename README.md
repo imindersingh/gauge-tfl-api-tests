@@ -105,7 +105,7 @@ Directory guide:
 
 ### Running tests
 - To execute all the tests, run `mvn clean test`
-- To execute all tests that are not tagged as wip (work in progress), run `mvn clean test -Dtags'!wip'`
+- To execute all tests that are not tagged as wip (work in progress), run `mvn clean test -Dtags='!wip'`
 
 ### Results
 The results can be found in the `reports` directory. See below for results:

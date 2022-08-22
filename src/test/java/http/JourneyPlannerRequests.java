@@ -12,7 +12,7 @@ public class JourneyPlannerRequests extends Requests {
         super(EnvConfig.get("HOST"));
     }
 
-    public HttpResponse<?> get(final String path, Map<String, Object> queryParams) {
+    public HttpResponse<?> get(final String path, final Map<String, Object> queryParams) {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Accept", "*/*");
         headers.put("Content-Type", "application/json");

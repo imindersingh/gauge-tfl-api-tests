@@ -113,6 +113,5 @@ public class JourneyPlannerAssertionSteps {
         }
         Set<ValidationMessage> errors = jsonSchema.validate(jsonResponse);
         assertThat(errors).isEmpty();
-
     }
 }
